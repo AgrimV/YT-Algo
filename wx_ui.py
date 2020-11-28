@@ -48,6 +48,18 @@ class Frame(wx.Frame):
         ytapi.redirect()  # Somewhere
 
 
+class Results(wx.Frame):
+
+    """Displaying the results"""
+
+    def __init__(self, results):
+        """Frame for results"""
+        wx.Frame.__init__(self, None, pos=wx.DefaultPosition,
+                          size=wx.Size(475, 100),
+                          style=wx.MINIMIZE_BOX | wx.SYSTEM_MENU | wx.CAPTION |
+                          wx.CLOSE_BOX | wx.CLIP_CHILDREN, title='Results')
+
+
 if __name__ == '__main__':
     app = wx.App(True)
     frame = Frame()

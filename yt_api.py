@@ -1,8 +1,7 @@
 from googleapiclient.discovery import build
+# import django
 
-api_key = ['AIzaSyB86BifF_MbhDgCe-0IdMsbhtrn7eaJ8LY',
-           'AIzaSyAabXt4cAY5i20xOKI2BLKEvGifcECUrJw',
-           'AIzaSyATS95kPrwlfKfAFOzwr841xiW-kg2EYvI']
+api_key = ['AIzaSyB86BifF_MbhDgCe-0IdMsbhtrn7eaJ8LY']
 
 youtube_api = build('youtube', 'v3', developerKey=api_key[1])
 

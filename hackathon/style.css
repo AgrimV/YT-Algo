@@ -1,0 +1,71 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background:url('yt background.PNG');
+    z-index: 2;
+    
+}
+
+#header{
+    padding:30px;
+    width: 100%;
+    background-color:#e50914;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    z-index: 2;
+}
+.btn{
+    background:#e50914;
+    color:#fff;
+    padding: 0.9rem 3.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    z-index: 2;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 11rem;
+    
+}
+.container::after{
+    content: '';
+    position:absolute;
+    top:135px;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0,0,0,0.7);
+    box-shadow: inset 150px 120px 300px #000,inset -150px -120px 300px #000;
+}
+.form-container{
+    z-index: 2;
+}
+.form-container input{
+    border:none;
+    background: #eee;
+    margin: 12px 0;
+    padding: 20px 150px;
+    text-align: center;
+    width:100%;
+    z-index: 2;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    
+}

@@ -17,7 +17,7 @@ Noobs
 
 
 ## Libraries Used
-WxPython for the UI
+
 
 GoogleAPIClient to access the YouTube API
 

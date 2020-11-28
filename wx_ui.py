@@ -41,12 +41,6 @@ class Frame(wx.Frame):
         """
         ytapi.redirect()  # Somewhere
 
-    def onEnter(self, event):
-        """
-        Send the query to search
-        """
-        ytapi.redirect()  # Somewhere
-
 
 class Results(wx.Frame):
 
@@ -58,6 +52,31 @@ class Results(wx.Frame):
                           size=wx.Size(475, 100),
                           style=wx.MINIMIZE_BOX | wx.SYSTEM_MENU | wx.CAPTION |
                           wx.CLOSE_BOX | wx.CLIP_CHILDREN, title='Results')
+
+        panel = wx.Panel(self)
+        label = wx.StaticText(panel,
+                              label='Enter the number of video to play it')
+
+        my_sizer = wx.BoxSizer(wx.VERTICAL)
+        my_sizer.Add(label, 0, wx.ALL, 5)
+
+        self.text = wx.TextCtrl(panel, style=wx.TE_PROCESS_ENTER,
+                                size=(400, 30))
+        self.text.SetFocus()
+        self.text.Bind(wx.EVT_TEXT_ENTER, self.onButton)
+
+        my_sizer.Add(self.text, 0, wx.ALL, 5)
+        panel.SetSizer(my_sizer)
+
+        search = wx.Bitmap("./icons/play.png", wx.BITMAP_TYPE_ANY)
+        button = wx.BitmapButton(panel, id=wx.ID_ANY, bitmap=search,
+                                 pos=(417, 28), size=(30, 30))
+
+        button.Bind(wx.EVT_BUTTON, self.onButton)
+        self.Show()
+
+    def onButton(self, event):
+        pass
 
 
 if __name__ == '__main__':

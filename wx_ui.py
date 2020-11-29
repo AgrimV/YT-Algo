@@ -1,5 +1,6 @@
 import wx
 import wx.adv
+
 import ytapi
 
 
@@ -28,8 +29,7 @@ class Frame(wx.Frame):
         my_sizer.Add(self.text, 0, wx.ALL, 5)
         panel.SetSizer(my_sizer)
 
-        # Icons not yet present
-        search = wx.Bitmap("./icons/search.png", wx.BITMAP_TYPE_ANY)
+        search = wx.Bitmap("./icons/search_reduced.png", wx.BITMAP_TYPE_ANY)
         button = wx.BitmapButton(panel, id=wx.ID_ANY, bitmap=search,
                                  pos=(417, 28), size=(30, 30))
         button.Bind(wx.EVT_BUTTON, self.onButton)
@@ -39,7 +39,9 @@ class Frame(wx.Frame):
         """
         Send the query to search
         """
-        ytapi.redirect()  # Somewhere
+        sub_app = wx.App(True)
+        Results(ytapi.search(self.text.GetValue()))
+        sub_app.MainLoop()
 
 
 class Results(wx.Frame):
@@ -52,6 +54,11 @@ class Results(wx.Frame):
                           size=wx.Size(475, 100),
                           style=wx.MINIMIZE_BOX | wx.SYSTEM_MENU | wx.CAPTION |
                           wx.CLOSE_BOX | wx.CLIP_CHILDREN, title='Results')
+
+        self.results = results
+        for index, result in enumerate(results):
+            print('\n' + str(index + 1) + '.  ' +
+                  result['snippet']['title'] + '\n')
 
         panel = wx.Panel(self)
         label = wx.StaticText(panel,
@@ -68,7 +75,7 @@ class Results(wx.Frame):
         my_sizer.Add(self.text, 0, wx.ALL, 5)
         panel.SetSizer(my_sizer)
 
-        search = wx.Bitmap("./icons/play.png", wx.BITMAP_TYPE_ANY)
+        search = wx.Bitmap("./icons/play_reduced.png", wx.BITMAP_TYPE_ANY)
         button = wx.BitmapButton(panel, id=wx.ID_ANY, bitmap=search,
                                  pos=(417, 28), size=(30, 30))
 
@@ -76,7 +83,10 @@ class Results(wx.Frame):
         self.Show()
 
     def onButton(self, event):
-        pass
+        serial = self.text.GetValue()
+        for index, result in enumerate(self.results):
+            if int(serial) == index + 1:
+                ytapi.redirect(result['id']['videoId'])
 
 
 if __name__ == '__main__':

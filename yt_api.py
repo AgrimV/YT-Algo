@@ -5,9 +5,10 @@ import os
 
 api_key = ['AIzaSyB86BifF_MbhDgCe-0IdMsbhtrn7eaJ8LY',
            'AIzaSyAabXt4cAY5i20xOKI2BLKEvGifcECUrJw',
-           'AIzaSyATS95kPrwlfKfAFOzwr841xiW-kg2EYvI']
+           'AIzaSyATS95kPrwlfKfAFOzwr841xiW-kg2EYvI',
+           'AIzaSyDmGjPdQ24FrtulH6ng6VkPGGcERi1ULTA']
 
-youtube_api = build('youtube', 'v3', developerKey=api_key[2])
+youtube_api = build('youtube', 'v3', developerKey=api_key[0])
 
 
 def search(query):
@@ -18,7 +19,7 @@ def search(query):
     for result in results['items']:
         chan_info = channel_info(result['snippet']['channelId'])
         vid_info = video_info(result['id']['videoId'])
-        if(int(vid_info['likes'])/int(vid_info['dislikes'])>=25 and int(vid_info['views'])/int(chan_info)>=1.3):  
+        if(int(vid_info['likes'])/int(vid_info['dislikes'])>=25):  
             search_result.append(result)
     return search_result
 

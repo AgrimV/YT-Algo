@@ -102,6 +102,8 @@ class Results(wx.Frame):
 
             button.Bind(wx.EVT_BUTTON, self.onButton)
             self.Show()
+        else:
+            print("Hmph! No Videos could pass the Filter")
 
     def onButton(self, event):
         serial = self.text.GetValue()

@@ -1,7 +1,11 @@
 from googleapiclient.discovery import build
-# import django
 
-api_key = ['AIzaSyB86BifF_MbhDgCe-0IdMsbhtrn7eaJ8LY']
+import platform
+import os
+
+api_key = ['AIzaSyB86BifF_MbhDgCe-0IdMsbhtrn7eaJ8LY',
+           'AIzaSyAabXt4cAY5i20xOKI2BLKEvGifcECUrJw',
+           'AIzaSyATS95kPrwlfKfAFOzwr841xiW-kg2EYvI']
 
 youtube_api = build('youtube', 'v3', developerKey=api_key[1])
 
@@ -12,9 +16,38 @@ def search(query):
                                         maxResults=10).execute()
     search_result = []
     for result in results['items']:
-        search_result.append(result)
-
+        chan_info = channel_info(result['snippet']['channelId'])
+        vid_info = video_info(result['id']['videoId'])
+        if(int(vid_info['likes']/vid_info['dislikes']>=25 and int(vid_info['views']/chan_info))>=1.3):  
+            search_result.append(result)
     return search_result
 
 
-print(search('alouette'))
+def video_info(videoId):
+    """
+    Returns video like dislike and view count
+    """
+    info = youtube_api.videos().list(id=videoId, part='statistics').execute()
+    return {'likes': info['items'][0]['statistics']['likeCount'],
+            'dislikes': info['items'][0]['statistics']['dislikeCount'],
+            'views': info['items'][0]['statistics']['viewCount']}
+
+
+def channel_info(channel_id):
+    """
+    Return channel info
+    """
+    info = youtube_api.channels().list(part='statistics',
+                                       id=channel_id).execute()
+    return info['items'][0]['statistics']['subscriberCount']
+
+
+def redirect(videoId):
+    """
+    Open YouTube Video
+    """
+    link = 'https://www.youtube.com/watch?v=' + videoId
+    if platform.system() == 'Linux':
+        os.system('sensible-browser ' + link)
+    else:
+        os.system('start ' + link)

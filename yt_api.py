@@ -16,9 +16,9 @@ def search(query):
                                         maxResults=10).execute()
     search_result = []
     for result in results['items']:
-        chan_info = channel_info(result['snippet']['channelId'])
+        chan_info = int(channel_info(result['snippet']['channelId']))
         vid_info = video_info(result['id']['videoId'])
-        if(int(vid_info['likes'])/int(vid_info['dislikes'])>=25 and int(vid_info['views'])/int(chan_info)>=1.3):  
+        if vid_info['likes'] / vid_info['dislikes'] >= 25 and vid_info['views'] / chan_info >= 1.3:
             search_result.append(result)
     return search_result
 
@@ -28,9 +28,9 @@ def video_info(videoId):
     Returns video like dislike and view count
     """
     info = youtube_api.videos().list(id=videoId, part='statistics').execute()
-    return {'likes': info['items'][0]['statistics']['likeCount'],
-            'dislikes': info['items'][0]['statistics']['dislikeCount'],
-            'views': info['items'][0]['statistics']['viewCount']}
+    return {'likes': int(info['items'][0]['statistics']['likeCount']),
+            'dislikes': int(info['items'][0]['statistics']['dislikeCount']),
+            'views': int(info['items'][0]['statistics']['viewCount'])}
 
 
 def channel_info(channel_id):

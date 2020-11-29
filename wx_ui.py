@@ -67,18 +67,18 @@ class Results(wx.Frame):
                           size=wx.Size(475, 100),
                           style=wx.MINIMIZE_BOX | wx.SYSTEM_MENU | wx.CAPTION |
                           wx.CLOSE_BOX | wx.CLIP_CHILDREN,
-                          title='Results for ' + search_query)
+                          title='Results for -' + search_query)
 
         self.results = results
         if self.results:
             for index, result in enumerate(results):
                 print('\n' + str(index + 1) + '.  ' +
                       result['snippet']['title'])
-                print('Published On : ' + result['snippet']['publishedAt'])
+                print('\tPublished On : ' + result['snippet']['publishedAt'])
                 vid_info = yt_api.video_info(result['id']['videoId'])
-                print('Views : ' + str(vid_info['views']))
-                print('Likes : ' + str(vid_info['likes']), end='\t')
-                print('Dislikes : ' + str(vid_info['dislikes']) + '\n')
+                print('\tViews : ' + str(vid_info['views']))
+                print('\tLikes : ' + str(vid_info['likes']), end='\t')
+                print('\tDislikes : ' + str(vid_info['dislikes']) + '\n')
 
             panel = wx.Panel(self)
             label = wx.StaticText(panel,

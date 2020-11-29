@@ -1,7 +1,7 @@
 import wx
 import wx.adv
 
-import ytapi
+import yt_api
 
 
 class Frame(wx.Frame):
@@ -29,7 +29,7 @@ class Frame(wx.Frame):
         my_sizer.Add(self.text, 0, wx.ALL, 5)
         panel.SetSizer(my_sizer)
 
-        search = wx.Bitmap("./icons/search_reduced.png", wx.BITMAP_TYPE_ANY)
+        search = wx.Bitmap("icons\search_reduced.bmp", wx.BITMAP_TYPE_ANY)
         button = wx.BitmapButton(panel, id=wx.ID_ANY, bitmap=search,
                                  pos=(417, 28), size=(30, 30))
         button.Bind(wx.EVT_BUTTON, self.onButton)
@@ -40,7 +40,7 @@ class Frame(wx.Frame):
         Send the query to search
         """
         sub_app = wx.App(True)
-        Results(ytapi.search(self.text.GetValue()))
+        Results(yt_api.search(self.text.GetValue()))
         sub_app.MainLoop()
 
 
@@ -75,7 +75,7 @@ class Results(wx.Frame):
         my_sizer.Add(self.text, 0, wx.ALL, 5)
         panel.SetSizer(my_sizer)
 
-        search = wx.Bitmap("./icons/play_reduced.png", wx.BITMAP_TYPE_ANY)
+        search = wx.Bitmap("icons\play_reduced.bmp", wx.BITMAP_TYPE_ANY)
         button = wx.BitmapButton(panel, id=wx.ID_ANY, bitmap=search,
                                  pos=(417, 28), size=(30, 30))
 
@@ -86,7 +86,7 @@ class Results(wx.Frame):
         serial = self.text.GetValue()
         for index, result in enumerate(self.results):
             if int(serial) == index + 1:
-                ytapi.redirect(result['id']['videoId'])
+                yt_api.redirect(result['id']['videoId'])
 
 
 if __name__ == '__main__':

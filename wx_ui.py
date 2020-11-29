@@ -67,7 +67,7 @@ class Results(wx.Frame):
                           size=wx.Size(475, 100),
                           style=wx.MINIMIZE_BOX | wx.SYSTEM_MENU | wx.CAPTION |
                           wx.CLOSE_BOX | wx.CLIP_CHILDREN,
-                          title='Results for -' + search_query)
+                          title='Results for - ' + search_query)
 
         self.results = results
         if self.results:
@@ -110,6 +110,7 @@ class Results(wx.Frame):
         for index, result in enumerate(self.results):
             if int(serial) == index + 1:
                 yt_api.redirect(result['id']['videoId'])
+                return
 
         yt_api.redirect('not_available')
 
